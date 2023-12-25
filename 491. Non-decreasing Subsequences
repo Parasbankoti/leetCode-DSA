@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+    void backtrack(vector<int>& nums, set<vector<int>>& res, int ind,vector<int>& temp){
+        if(ind == nums.size()){
+            if(temp.size() >1){
+            if(is_sorted(temp.begin(),temp.end()))
+            res.insert(temp);
+            }
+            return;
+        }
+       backtrack(nums,res,ind+1,temp);
+        temp.push_back(nums[ind]);
+       backtrack(nums,res,ind+1,temp);
+        temp.pop_back();
+    }
+
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        set<vector<int>>res;
+        vector<int>temp;
+        backtrack(nums,res,0,temp);
+        //sort(res.begin(),res.end());
+        vector<vector<int>>ans;
+        for(auto i:res)
+            ans.push_back(i);
+       
+        return ans;
+    }
+};
