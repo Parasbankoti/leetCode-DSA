@@ -1,21 +1,19 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        unordered_map<char,int>mp;
-        int res=0;
-        int i=0,j=0;
-        while(j<s.length()){
-            if(!mp.count(s[j])){
-                mp[s[j]]++;
-                j++;
-                int sz=mp.size();
-                res=max(res,sz);
-            }
-            else{
-                mp.erase(s[i]);
-                i++;
-            }
-        }
-        return res;
+    int longestOnes(vector<int>& nums, int k) {
+        int maxi=0;
+        int left=0,right=0,count=0;
+       for(int i=0;i<nums.size();i++){
+           if(nums[i] == 0)
+           count++;
+           while(count > k){
+               if(nums[left] == 0){
+                   count--;
+               }
+               left++;
+           }
+           maxi=max(maxi,i-left+1);
+       }
+       return maxi;
     }
 };
